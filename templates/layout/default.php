@@ -30,10 +30,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
+    <script>
+       
+          $(document).ready(function() {
+  $('#summernote').summernote();
+});
+       
+    </script>
 </head>
 <body>
     <nav class="top-nav">
@@ -43,6 +56,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-nav-links">
             <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
             <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+            <a href="">cms/templates/layout/default.php</a>
         </div>
     </nav>
     <main class="main">

@@ -1,7 +1,7 @@
 <!-- File: src/Template/Articles/index.ctp -->
 
 <?php
-  //pr($_SESSION['message']);
+  pr($articles);
 ?>
 	<h1>Articles</h1>
 	<?= $this->Html->link('Add Article', ['action' => 'add']) ?>

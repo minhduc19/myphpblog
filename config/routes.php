@@ -44,7 +44,15 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
+$routes->scope('/', function (RouteBuilder $routes) {
+    $routes->setExtensions(['json','xml']);
+    $routes->resources('Articles');
+});
+
 $routes->scope('/', function (RouteBuilder $builder) {
+
+    
+    
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
@@ -70,6 +78,18 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
+    $builder->scope('/articles', function (RouteBuilder $builder) 
+    {
+        $builder->connect('/tagged/*', ['controller' => 'Articles', 'action' => 'tags']);
+    });
+
+    $builder->scope('/articles', function (RouteBuilder $builder) 
+    {
+        $builder->connect('/test/', ['controller' => 'Articles', 'action' => 'test']);
+    });
+
+
+
     $builder->fallbacks();
 });
 
