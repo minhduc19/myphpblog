@@ -142,6 +142,17 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
         'fields' => [
         'username' => 'email',
         'password' => 'password',
+        'passwordHasher' => [
+        'className' => 'Authentication.Fallback',
+        'hashers' => [
+            'Authentication.Default',
+            [
+                'className' => 'Authentication.Legacy',
+                'hashType' => 'md5',
+                'salt' => false // turn off default usage of salt
+            ],
+        ]
+    ]
         ]
         ]);
         // Load the authenticators, you want session first
