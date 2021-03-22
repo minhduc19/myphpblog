@@ -108,9 +108,4 @@ public function findTagged(Query $query, array $options)
 	}
 	return $query->group(['Articles.id']);
 }
-
-
 }
-
-
-

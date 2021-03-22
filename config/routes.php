@@ -93,7 +93,6 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
     $builder->fallbacks();
 });
-
 /*
  * If you need a different set of middleware or none at all,
  * open new scope and define routes there.

@@ -231,8 +231,4 @@ class ArticlesController extends AppController
 		'tags' => $tags
 		]);
 	}
-
-
-
-
 }
