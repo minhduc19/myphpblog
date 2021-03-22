@@ -132,7 +132,7 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
     public function getAuthenticationService(ServerRequestInterface $request):AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
-        'unauthenticatedRedirect' => '/users/login',
+        'unauthenticatedRedirect' => '/cms/users/login',
         'queryParam' => 'redirect',
         ]);
     // Load identifiers, ensure we check email and password fields
