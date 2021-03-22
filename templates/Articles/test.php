@@ -19,4 +19,7 @@ class OtherClass extends MyClass
 
 $class = new OtherClass();
 $class->myFunc();
+
+$response = new stdClass();
+
 ?>

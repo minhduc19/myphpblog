@@ -83,11 +83,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
         $builder->connect('/tagged/*', ['controller' => 'Articles', 'action' => 'tags']);
     });
 
+    
     $builder->scope('/articles', function (RouteBuilder $builder) 
     {
         $builder->connect('/test/', ['controller' => 'Articles', 'action' => 'test']);
     });
-
+    
 
 
     $builder->fallbacks();

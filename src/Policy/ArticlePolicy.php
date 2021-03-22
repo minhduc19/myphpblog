@@ -35,10 +35,7 @@ class ArticlePolicy
         return $this->isAuthor($user, $article);
     }
 
-    public function canIndex(IdentityInterface $user, Article $article)
-    {
-        return $this->isAuthor($user, $article);
-    }
+
 
     /**
      * Check if $user can delete Article
@@ -51,6 +48,8 @@ class ArticlePolicy
     {
         return $this->isAuthor($user, $article);
     }
+
+
 
     /**
      * Check if $user can view Article

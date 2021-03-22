@@ -4,6 +4,8 @@
 
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
+
 
 class ArticlesController extends AppController
 {	
@@ -13,46 +15,92 @@ class ArticlesController extends AppController
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
         //$this->Authentication->allowUnauthenticated(['test']);
-        $this->Authentication->addUnauthenticatedActions(['index', 'view','test']);
+        $this->Authentication->addUnauthenticatedActions(['view','test','reply']);
     }
 	public function initialize(): void
 	{	
+
 		parent::initialize();
 		$this->loadComponent('Paginator');
 		$this->loadComponent('Flash'); // Include the FlashComponent
 		$this->loadComponent('RequestHandler');
 		$this->loadComponent('Math');
+		
 	}	
 
-	public function test()
+	public function test($id)
 	{
+		$query = $this->Articles->find()->where(['id' => $id])->all('assoc');
+		//$reply = $this->Articles;
+	
+		foreach ($query as $key => $value) {
+			echo $value;
+		}
+
+
 		$this->Authorization->skipAuthorization();
+		$connection = ConnectionManager::get('test');
+		$results = $connection->execute('SELECT * FROM event')->fetchAll('assoc');
+		foreach ($results as $key => $value) {
+			pr($value);
+		}
+		//echo($results);
+		//pr($results);
+		
 		//$article = $this->Articles;
 		//$this->set('test',$article);
 		echo $this->Math->doComplexOperation(1,2);
+
+
 	}
 
 
 	public function index()
 	{
-		$this->Authorization->skipAuthorization();
+		
+		//$service = $this->request->getAttribute('authentication')->getAuthenticationProvider();
+		$service = $this->request->getAttribute('authentication')->getResult()->isValid();
+		pr($service);
 
-		//$article = $this->Articles->find('all');
+	
+		$user = $this->request->getAttribute('identity');
+		//pr($user);
+		//echo $user->get('email');
+		$articles = $user->applyScope('index',$this->Articles->find('all')->contain("Tags"));
+		
 
-
-		$test = $this->Articles->newEmptyEntity()->_getTagString();
-
-		$this->set('test',$test);
-		//$articles = $this->Paginator->paginate($this->Articles->find()) = ['limit' => '50'];
-		$currentUserArticle = array('conditions' => array('user_id' => 4));
-		$articles = $this->Articles->find('all',$currentUserArticle);
+		$tags = $this->getTableLocator()->get("Tags");
+		//pr($tags);
 
 		//send data to view
 		$this->set('articles',$articles);
 		$this->viewBuilder()->setOption('serialize', ['articles']);
+		//pr($this->request);
 		//pr($this->add());
+		
 
 		
+	}
+
+	public function reply()
+	{
+	$this->Authorization->skipAuthorization();
+	$reply = $this->Articles->newEmptyEntity();
+	$reply->user_id = $this->request->getAttribute('identity')->getIdentifier();
+	
+	if ($this->request->is('post')) 
+	{
+	$reply = $this->Articles->patchEntity($reply,$this->request->getData());
+	
+	if ($this->Articles->save($reply)) 
+		{	
+		$this->Flash->success(__('success'));
+		return $this->redirect(['action' => 'index']);
+		} else {
+		$this->Flash->error(__('Unable to add your article.'));
+		}		
+	}
+
 	}
 
 	public function view($slug = null)
@@ -63,15 +111,17 @@ class ArticlesController extends AppController
 
 	$this-> set('test',$test);
 	$this->set(compact('article'));
+
+	$reply = $this->Articles->newEmptyEntity();
+	$this->set('reply',$reply);
 	//pr($article);
 	//
 	}
 
 	public function add()
 	{
-
-	
 	$article = $this->Articles->newEmptyEntity();
+	pr($article);
 	$this->Authorization->authorize($article);
 	//$tag = $this->Tags->newEmptyEntity();
 	//$_SESSION['message'] =  $article;
@@ -155,10 +205,10 @@ class ArticlesController extends AppController
 
 	public function delete($slug)
 	{
-		$this->Authorization->authorize($article);
+		
 		$this->request->allowMethod(['post', 'delete']);
 		$article = $this->Articles->findBySlug($slug)->firstOrFail();
-		
+		$this->Authorization->authorize($article);
 
 		if ($this->Articles->delete($article)) 
 		{
@@ -167,7 +217,7 @@ class ArticlesController extends AppController
 		}
 	}
 
-	public function tags($tags)
+	public function tags(...$tags)
 	{
 		// The 'pass' key is provided by CakePHP and contains all
 		// the passed URL path segments in the request.

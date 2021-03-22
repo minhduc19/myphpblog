@@ -24,6 +24,9 @@ class UsersController extends AppController
     }
     public function login()
     {
+        $service = $this->request->getAttribute('authentication')->getResult()->isValid();
+        var_dump($service);
+
         $this->Authorization->skipAuthorization();
 
         $this->request->allowMethod(['get', 'post']);
@@ -45,6 +48,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+
         $this->Authorization->skipAuthorization();
 
         $result = $this->Authentication->getResult();
