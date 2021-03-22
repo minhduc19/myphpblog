@@ -25,6 +25,14 @@ class UsersController extends AppController
     public function login()
     {
         $authentication = $this->request->getAttribute('authentication');
+        if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) 
+        {
+            // Rehash happens on save.
+            $user = $this->Users->get($this->Auth->user('id'));
+            $user->password = $this->request->getData('password');
+            $this->Users->save($user);
+        }
+
         $service = $authentication->getResult()->isValid();
         var_dump($service);
 
@@ -33,14 +41,11 @@ class UsersController extends AppController
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
+
+
         if ($result->isValid()) {
         // redirect to /articles after login success
-            if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
-            // Rehash happens on save.
-            $user = $this->Users->get($this->Auth->user('id'));
-            $user->password = $this->request->getData('password');
-            $this->Users->save($user);
-            }
+
 
         $redirect = $this->request->getQuery('redirect', [
         'controller' => 'Articles',
