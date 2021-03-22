@@ -1,5 +1,5 @@
 <?php
-var_dump(hash_algos());
+//var_dump(hash_algos());
 /**
  * The Front Controller for handling every request
  *

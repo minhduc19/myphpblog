@@ -25,13 +25,7 @@ class UsersController extends AppController
     public function login()
     {
         $authentication = $this->request->getAttribute('authentication');
-        if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) 
-        {
-            // Rehash happens on save.
-            $user = $this->Users->get($this->Auth->user('id'));
-            $user->password = $this->request->getData('password');
-            $this->Users->save($user);
-        }
+
 
         $service = $authentication->getResult()->isValid();
         var_dump($service);

@@ -56,8 +56,6 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
      */
     public function bootstrap(): void
     {
-        $this->addPlugin('Migrations');
-
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
@@ -142,10 +140,6 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
         'fields' => [
         'username' => 'email',
         'password' => 'password',
-        'passwordHasher' => [
-        'className' => 'Authentication.Fallback',
-        
-    ]
         ]
         ]);
         // Load the authenticators, you want session first
@@ -156,7 +150,7 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
         'username' => 'email',
         'password' => 'password',
         ],
-        'loginUrl' => '/cms/users/login',
+        'loginUrl' => '/users/login',
         ]);
         return $authenticationService;
         }
