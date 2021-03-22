@@ -21,5 +21,4 @@ $class = new OtherClass();
 $class->myFunc();
 
 $response = new stdClass();
-
 ?>

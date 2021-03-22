@@ -11,11 +11,6 @@ use Cake\Validation\Validator;
 
 class ArticlesTable extends Table
 {
-
-	
-
-
-
 	public function initialize(array $config): Void
 	{
 		$this->addBehavior('Timestamp');

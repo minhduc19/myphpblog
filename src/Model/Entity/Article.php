@@ -34,9 +34,7 @@ class Article extends Entity
 	}, '');
 		return trim($str, ', ');
 	}
-
 	protected function test(){
 		return "test";
 	}
-
 }

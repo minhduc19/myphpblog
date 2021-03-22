@@ -20,4 +20,3 @@ echo $this->Form->control('tags._ids', [
 	'options' => $tags]);
 echo $this->Form->end();
 ?>
-
