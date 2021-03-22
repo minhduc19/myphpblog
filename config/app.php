@@ -416,7 +416,7 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php',
+        'defaults' => 'cake',
         'ini' => [
         'session.cookie_secure' => false,
         'session.cookie_path' => '/',
