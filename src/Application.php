@@ -49,6 +49,8 @@ use Authorization\Policy\OrmResolver;
  * want to use in your application.
  */
 
+echo "test";
+
 
 class Application extends BaseApplication  implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
