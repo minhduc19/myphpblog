@@ -48,7 +48,7 @@ use Authorization\Policy\OrmResolver;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-
+echo "test";
 
 
 class Application extends BaseApplication  implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
