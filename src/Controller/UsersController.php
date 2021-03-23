@@ -28,7 +28,7 @@ class UsersController extends AppController
 
 
         $service = $authentication->getResult()->isValid();
-        var_dump($service);
+        //var_dump($service);
 
         $this->Authorization->skipAuthorization();
 

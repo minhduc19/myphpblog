@@ -60,7 +60,7 @@ class ArticlesController extends AppController
 		
 		//$service = $this->request->getAttribute('authentication')->getAuthenticationProvider();
 		$service = $this->request->getAttribute('authentication')->getResult()->isValid();
-		pr($service);
+		//pr($service);
 
 	
 		$user = $this->request->getAttribute('identity');
