@@ -1,6 +1,5 @@
 <?php
 
-echo "hello";
 
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
