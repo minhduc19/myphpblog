@@ -417,13 +417,12 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
-         'ini' => [
-            'session.cookie_name' => 'MyCookie',
-            'session.cookie_lifetime' => 1800, // Valid for 30 minutes
-            'session.gc_divisor' => 1000,
-            'session.cookie_httponly' => true
-    ]
-
+        'ini' => [
+        'session.cookie_secure' => false,
+        'session.cookie_path' => '/',
+        'session.cookie_domain' => 'hello.necampus.com',
+        'session.cookie_name' => 'MyCookie',
+        'session.cookie_lifetime' => 1800,
         ]
     ],
 ];
