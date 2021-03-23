@@ -421,7 +421,6 @@ return [
         'session.cookie_secure' => false,
         'session.cookie_path' => '/',
         'session.cookie_domain' => 'hello.necampus.com',
-        'session.cookie_name' => 'MyCookie',
         'session.cookie_lifetime' => 1800,
         ]
     ],
