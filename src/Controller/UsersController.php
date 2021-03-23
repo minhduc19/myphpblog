@@ -43,7 +43,7 @@ class UsersController extends AppController
 
         $redirect = $this->request->getQuery('redirect', [
         'controller' => 'Articles',
-        'action' => 'index',
+        'action' => 'add',
         ]);
         return $this->redirect($redirect);
     }
