@@ -49,6 +49,7 @@ use Authorization\Policy\OrmResolver;
  * want to use in your application.
  */
 
+echo "hello";
 
 
 class Application extends BaseApplication  implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
