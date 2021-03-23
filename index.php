@@ -1,6 +1,6 @@
 <?php
 
-echo "test";
+
 
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
