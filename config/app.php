@@ -416,6 +416,14 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php'
+        'defaults' => 'php',
+         'ini' => [
+            'session.cookie_name' => 'MyCookie',
+            'session.cookie_lifetime' => 1800, // Valid for 30 minutes
+            'session.gc_divisor' => 1000,
+            'session.cookie_httponly' => true
+    ]
+
+        ]
     ],
 ];
