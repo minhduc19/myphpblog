@@ -1,4 +1,4 @@
-src/Application.php
+src/Application.php merge=our
 
 # Define the line ending behavior of the different file extensions
 # Set default behavior, in case users don't have core.autocrlf set.
