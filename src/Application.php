@@ -49,7 +49,7 @@ use Authorization\Policy\OrmResolver;
  * want to use in your application.
  */
 
-echo "git test";
+
 
 class Application extends BaseApplication  implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
