@@ -1,3 +1,5 @@
+src/Controller/UsersController.php merge=ours
+
 # Define the line ending behavior of the different file extensions
 # Set default behavior, in case users don't have core.autocrlf set.
 * text text=auto eol=lf
