@@ -11,11 +11,6 @@ use Cake\Validation\Validator;
 
 class ArticlesTable extends Table
 {
-
-	
-
-
-
 	public function initialize(array $config): Void
 	{
 		$this->addBehavior('Timestamp');
@@ -108,9 +103,4 @@ public function findTagged(Query $query, array $options)
 	}
 	return $query->group(['Articles.id']);
 }
-
-
 }
-
-
-

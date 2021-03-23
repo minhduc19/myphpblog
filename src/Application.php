@@ -40,6 +40,8 @@ use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
+
+//echo "test git";
 /**
  * Application setup class.
  *
@@ -56,8 +58,6 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
      */
     public function bootstrap(): void
     {
-        $this->addPlugin('Migrations');
-
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
@@ -134,7 +134,7 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
     public function getAuthenticationService(ServerRequestInterface $request):AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
-        'unauthenticatedRedirect' => '/cms/users/login',
+        'unauthenticatedRedirect' => '/users/login',
         'queryParam' => 'redirect',
         ]);
     // Load identifiers, ensure we check email and password fields
@@ -152,7 +152,7 @@ class Application extends BaseApplication  implements AuthenticationServiceProvi
         'username' => 'email',
         'password' => 'password',
         ],
-        'loginUrl' => '/cms/users/login',
+        'loginUrl' => '/users/login',
         ]);
         return $authenticationService;
         }

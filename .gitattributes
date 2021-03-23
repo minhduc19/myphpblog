@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 src/Application.php merge=ours
+=======
+merge=ours
+>>>>>>> production
 
 # Define the line ending behavior of the different file extensions
 # Set default behavior, in case users don't have core.autocrlf set.

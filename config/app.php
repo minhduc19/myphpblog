@@ -417,5 +417,7 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'cookie' => 'my_app',
+        'timeout' => 4320
     ],
 ];

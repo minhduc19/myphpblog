@@ -24,16 +24,23 @@ class UsersController extends AppController
     }
     public function login()
     {
-        $service = $this->request->getAttribute('authentication')->getResult()->isValid();
-        var_dump($service);
+        $authentication = $this->request->getAttribute('authentication');
+
+
+        $service = $authentication->getResult()->isValid();
+        //var_dump($service);
 
         $this->Authorization->skipAuthorization();
 
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
+
+
         if ($result->isValid()) {
         // redirect to /articles after login success
+
+
         $redirect = $this->request->getQuery('redirect', [
         'controller' => 'Articles',
         'action' => 'index',
