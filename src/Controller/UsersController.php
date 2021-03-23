@@ -43,12 +43,12 @@ class UsersController extends AppController
 
         $redirect = $this->request->getQuery('redirect', [
         'controller' => 'Articles',
-        'action' => 'add',
+        'action' => 'index',
         ]);
         return $this->redirect($redirect);
     }
         // display error if user submitted and authentication failed
-        if (!$result->isValid()) {
+        if ($this->request->is('post') && !$result->isValid()) {
         $this->Flash->error(__('Invalid username or password'));
         }
     }
