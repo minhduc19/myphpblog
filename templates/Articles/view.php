@@ -6,7 +6,7 @@
 <p><?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?></p>
 
 <h2>Answer post</h2>
-<?= $this->Form->create($reply, ['url' => ['controller' => 'answers','action' => 'add']]);?>
+<?= $this->Form->create($answer, ['url' => ['controller' => 'answers','action' => 'add']]);?>
 <?= $this->Form->control('article_id', ['type' => 'hidden', 'value' => $article->id]); ?>
 <?= $this->Form->control('user_id', ['type' => 'hidden', 'value' => 1]); ?>
 <?= $this->Form->control('body', array(
@@ -16,3 +16,7 @@
 )); ?>
 <?= $this->Form->button(__('Answer')); ?>
 <?= $this->Form->end(); ?>
+
+<?php
+//$this->render('/users/index');
+?>

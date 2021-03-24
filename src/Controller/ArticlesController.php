@@ -77,31 +77,9 @@ class ArticlesController extends AppController
 		$this->viewBuilder()->setOption('serialize', ['articles']);
 		//pr($this->request);
 		//pr($this->add());
-		
-
-		
 	}
 
-	public function reply()
-	{
-	$this->Authorization->skipAuthorization();
-	$reply = $this->Articles->newEmptyEntity();
-	$reply->user_id = $this->request->getAttribute('identity')->getIdentifier();
-	
-	if ($this->request->is('post')) 
-	{
-	$reply = $this->Articles->patchEntity($reply,$this->request->getData());
-	
-	if ($this->Articles->save($reply)) 
-		{	
-		$this->Flash->success(__('success'));
-		return $this->redirect(['action' => 'index']);
-		} else {
-		$this->Flash->error(__('Unable to add your article.'));
-		}		
-	}
 
-	}
 
 	public function view($slug = null)
 	{
@@ -112,8 +90,8 @@ class ArticlesController extends AppController
 	$this-> set('test',$test);
 	$this->set(compact('article'));
 
-	$reply = $this->Articles->newEmptyEntity();
-	$this->set('reply',$reply);
+	$answer = $this->getTableLocator()->get('Answers')->newEmptyEntity();
+	$this->set('answer',$answer);
 	//pr($article);
 	//
 	}
