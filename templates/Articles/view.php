@@ -1,5 +1,5 @@
 <p><b>Tags:</b> <?= h($article->tag_string) ?></p>
-<?php pr($article) ?>
+<?php //pr($article) ?>
 <h1><?= h($article->title) ?></h1>
 <p><?= h($article->body) ?></p>
 <p><small>Created: <?= $article->created->format(DATE_RFC850) ?></small></p>
@@ -17,6 +17,20 @@
 <?= $this->Form->button(__('Answer')); ?>
 <?= $this->Form->end(); ?>
 
-<?php
-//$this->render('/users/index');
-?>
+test
+<ul>
+  <li>Unordered list item 1</li>
+  <li>Unordered list item 2</li>
+</ul>
+
+<!-- Ordered list -->
+<ol>
+  <li>Ordered list item 1</li>
+  <li>Ordered list item 2</li>
+</ol>
+
+<!-- Description list -->
+<dl>
+  <dt>Description list item 1</dt>
+  <dd>Description list item 1.1</dd>
+</dl>

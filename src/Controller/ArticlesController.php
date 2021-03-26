@@ -15,7 +15,7 @@ class ArticlesController extends AppController
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
         //$this->Authentication->allowUnauthenticated(['test']);
-        $this->Authentication->addUnauthenticatedActions(['view','test','reply']);
+        $this->Authentication->addUnauthenticatedActions(['view','test','reply','receive']);
     }
 	public function initialize(): void
 	{	
@@ -54,9 +54,20 @@ class ArticlesController extends AppController
 
 	}
 
+	public function receive(){
+		$this->Authorization->skipAuthorization();
+		$id = $this->request->getData('id');
+		$isPost = $this->request->is('get');
+		$page = $this->request->getQuery('id');
+		var_dump($page);
+		//var_dump($this->request->getMethod());
+		$this->autoRender = false;
+			
+	}
 
 	public function index()
 	{
+		
 		
 		//$service = $this->request->getAttribute('authentication')->getAuthenticationProvider();
 		$service = $this->request->getAttribute('authentication')->getResult()->isValid();
@@ -90,10 +101,14 @@ class ArticlesController extends AppController
 	$this-> set('test',$test);
 	$this->set(compact('article'));
 
-	$answer = $this->getTableLocator()->get('Answers')->newEmptyEntity();
+	//$answer = $this->getTableLocator()->get('Answers')->newEmptyEntity();
+	$answer = $this->loadModel('Answers')->newEmptyEntity();
 	$this->set('answer',$answer);
 	//pr($article);
-	//
+	//$new = 'This variable $a is from function view';
+	//$this->setAction('add');
+	$this->setAction('add',$new);
+	//$this->render('/users/test','test_template');
 	}
 
 	public function add()
@@ -179,6 +194,22 @@ class ArticlesController extends AppController
 
 	$this->set('tags', $tags);
 	$this->set('article', $article);
+	}
+
+	public function ajaxRemove(){
+		$id = $this->request->getData('del_id');
+		$this->request->allowMethod(['post', 'delete']);
+		$article = $this->Articles->find()->where(['id' => $id])->firstOrFail();
+		$this->Authorization->authorize($article);
+
+		if ($this->Articles->delete($article)) 
+		{
+			$this->Flash->success(__('The {0} article has been deleted.', $article->→title));
+			//return $this->redirect(['action' => 'index']);
+			exit("yes");
+		}
+
+		
 	}
 
 	public function delete($slug)
