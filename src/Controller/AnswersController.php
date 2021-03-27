@@ -64,6 +64,7 @@ class AnswersController extends AppController
         $answer = $this->Answers->newEmptyEntity();
         if ($this->request->is('post')) {
             $answer = $this->Answers->patchEntity($answer, $this->request->getData());
+            $answer->user_id = $this->request->getAttribute('identity')->getIdentifier();
             if ($this->Answers->save($answer)) {
                 $this->Flash->success(__('The answer has been saved.'));
 
@@ -85,9 +86,11 @@ class AnswersController extends AppController
      */
     public function edit($id = null)
     {
-        $answer = $this->Answers->get($id, [
-            'contain' => [],
-        ]);
+
+        $answer = $this->Answers->get($id);
+       
+
+        $this->Authorization->authorize($answer);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $answer = $this->Answers->patchEntity($answer, $this->request->getData());
             if ($this->Answers->save($answer)) {
@@ -113,6 +116,7 @@ class AnswersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $answer = $this->Answers->get($id);
+        $this->Authorization->authorize($answer);
         if ($this->Answers->delete($answer)) {
             $this->Flash->success(__('The answer has been deleted.'));
         } else {

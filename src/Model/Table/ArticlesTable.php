@@ -19,6 +19,7 @@ class ArticlesTable extends Table
 			'joinTable' => 'articles_tags',
 			'dependent' => true
 		]);
+		$this->hasMany('Answers');
 	}
 
 	public function beforeSave(EventInterface $event, $entity, $options)

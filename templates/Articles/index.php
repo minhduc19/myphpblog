@@ -52,14 +52,19 @@ $(function(){
 		var del_id = $(this).attr('id');
 		var del_element = $(this).parent().parent();
 		//alert(del_element);
-		del_element.remove();
+		
 		$.ajax({
 			type: 'POST',
 			url: "<?= $this->Url->build(['controller' => 'Articles', 'action' => 'ajaxRemove'])?>",
 			data:{del_id:del_id},
 			headers: {
 					'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
+				},
+			success: function(data){
+				if(data == "yes"){
+				del_element.remove();
 				}
+			}
 
 		});
 	})

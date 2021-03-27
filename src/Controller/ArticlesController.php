@@ -95,7 +95,7 @@ class ArticlesController extends AppController
 	public function view($slug = null)
 	{
 	$this->Authorization->skipAuthorization();
-	$article = $this->Articles->findBySlug($slug)->contain('Tags')->firstOrFail();
+	$article = $this->Articles->findBySlug($slug)->contain('Tags')->contain('Answers')->firstOrFail();
 	$test = $this->Articles;
 
 	$this-> set('test',$test);
@@ -107,7 +107,7 @@ class ArticlesController extends AppController
 	//pr($article);
 	//$new = 'This variable $a is from function view';
 	//$this->setAction('add');
-	$this->setAction('add',$new);
+	//$this->setAction('add',$new);
 	//$this->render('/users/test','test_template');
 	}
 
@@ -204,7 +204,7 @@ class ArticlesController extends AppController
 
 		if ($this->Articles->delete($article)) 
 		{
-			$this->Flash->success(__('The {0} article has been deleted.', $article->→title));
+			$this->Flash->success(__('The {0} article has been deleted.', $article->title));
 			//return $this->redirect(['action' => 'index']);
 			exit("yes");
 		}
