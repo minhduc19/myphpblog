@@ -65,7 +65,7 @@ class ArticlesController extends AppController
 			
 	}
 
-	public function publicIndex(){
+	public function public(){
 		$this->Authorization->skipAuthorization();
 		$articles = $this->Articles->find('all')->contain("Tags");
 		$this->set('articles',$articles);
