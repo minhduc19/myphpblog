@@ -5,6 +5,7 @@
 /logs/*
 /tmp/*
 /vendor/*
+/webroot/css/bootstrap.css
 
 # OS generated files #
 ######################

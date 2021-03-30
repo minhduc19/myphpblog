@@ -15,7 +15,7 @@ class ArticlesController extends AppController
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
         //$this->Authentication->allowUnauthenticated(['test']);
-        $this->Authentication->addUnauthenticatedActions(['view','test','reply','receive']);
+        $this->Authentication->addUnauthenticatedActions(['view','test','reply','receive','publicIndex']);
     }
 	public function initialize(): void
 	{	
@@ -65,10 +65,14 @@ class ArticlesController extends AppController
 			
 	}
 
+	public function publicIndex(){
+		$this->Authorization->skipAuthorization();
+		$articles = $this->Articles->find('all')->contain("Tags");
+		$this->set('articles',$articles);
+	}
+
 	public function index()
 	{
-		
-		
 		//$service = $this->request->getAttribute('authentication')->getAuthenticationProvider();
 		$service = $this->request->getAttribute('authentication')->getResult()->isValid();
 		//pr($service);
@@ -96,8 +100,22 @@ class ArticlesController extends AppController
 	{
 	$this->Authorization->skipAuthorization();
 	$article = $this->Articles->findBySlug($slug)->contain('Tags')->contain('Answers')->firstOrFail();
+
+	//pr($article->answers);
+	//$this->Authorization->authorize($article->answers);
+	// Using Authentication component
+
+// Using request object
+
+
+	$result = $this->Authentication->getResult();
+	$user = $this->request->getAttribute('identity');
+
+
 	$test = $this->Articles;
 
+
+	$this->set('user',$user);
 	$this-> set('test',$test);
 	$this->set(compact('article'));
 

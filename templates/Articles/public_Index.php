@@ -1,40 +1,22 @@
-<!-- File: src/Template/Articles/index.ctp -->
+  <div class="row">    
+    <div class="input-field col s8 m8 l4 offset-l3">
+      <input value="" id="first_name2" type="text" class="validate">
+      <label class="active" for="first_name2">Type your email</label>
+    </div>
+    <div class="input-field col s4 m4 l2">
+      <a class="waves-effect waves-light btn">Subscribe</a>
+    </div>
+  </div>
 
-<?php
-  //pr($articles);
-  $cell = $this->cell('Inbox');
-?>
-
-<?= $cell ?>
-	<h1>Articles</h1>
-	<?= $this->Html->link('Add Article', ['action' => 'add']) ?>
-		<table>
-			<tr>
-				<th>Title</th>
-				<th>Created</th>
-			</tr>
 				<!-- Here is where we iterate through our $articles query object, printing out
 				˓→article info -->
 				<?php foreach ($articles as $article): ?>
-			<tr id = <?= $article->id ?>>
-				<td>
-				<?= $this->Html->link($article->title, ['action' => 'view', $article->slug]) ?>
-				</td>
-				<td>
-				<?= $article->created->format(DATE_RFC850) ?>
-				</td>
-				<td>
-				<?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?>
-				</td>
-				<td>
-				<?= $this->Form->postLink('Delete',['action' => 'delete', $article->slug],['confirm' => 'Are you sure?'])?>
-				</td>
-				<td>
-				<?= $this->Form->button(__('test'),['id' => $article->id,'class' => 'delete waves-effect waves-light btn']);?>
-				</td>
-			</tr>
-	<?php endforeach; ?>
-</table>
+					<h5 id = <?= $article->id ?>><?= $this->Html->link($article->title, ['action' => 'view', $article->slug]) ?></h5>
+					
+				<?php endforeach; ?>
+
+
+
 
 
 <script>
@@ -45,6 +27,9 @@ $(function (){
 	});
 });
 */
+
+
+
 
 $(function(){
 	$("button.delete").click(function(){

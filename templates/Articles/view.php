@@ -16,13 +16,27 @@
 <?= $this->Form->button(__('Answer')); ?>
 <?= $this->Form->end(); ?>
 
+ <div class="col s12 m7">
 <?php foreach($article->answers as $key => $value)	{
-		echo "<div>";
-		echo $value->body;
+		echo "<div class='card horizontal'>";
+			echo "<div class='card-stacked'>";
+				echo "<div class='card-stacked'>";
+					echo "<div class='card-content'>";
+						echo $value->body;
+					echo "</div>";
+					
+				
+						if($user != null && $user->can('edit', $value)){
+							echo "<div class='card-action'>";
+							echo $this->Html->link('Edit', ['controller' => 'answers','action' => 'edit', $value->id]);
+							echo "</div>";
+						}
+
+						//echo $this->Form->postLink('Delete',['controller' => 'answers','action' => 'delete', $value->id],['confirm' => 'Are you sure?']);
+				echo "</div>";
+			echo "</div>";
 		echo "</div>";
-		echo "<span>".$this->Html->link('Edit', ['controller' => 'answers','action' => 'edit', $value->id])."</span>";
-		echo $this->Form->postLink('Delete',['controller' => 'answers','action' => 'delete', $value->id],['confirm' => 'Are you sure?']);
-		echo "</span>";
 	}?>
+</div>
 
-
+  

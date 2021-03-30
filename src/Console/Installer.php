@@ -51,6 +51,30 @@ class Installer
      * @throws \Exception Exception raised by validator.
      * @return void
      */
+    public static function postUpdate(Event $event) 
+    {
+        $io = $event->getIO();
+
+        $rootDir = dirname(dirname(__DIR__));
+
+        static::copyTwitterBootstrapFiles($rootDir, $io);
+    }
+
+public static function copyTwitterBootstrapFiles($dir, $io) 
+    {
+
+        $bootstrapJsSource = $dir . '/vendor/twbs/bootstrap/dist/css/bootstrap.css';
+        $bootstrapJsDestination = $dir . '/webroot/css/bootstrap.css';
+
+        if (file_exists($bootstrapJsSource)) {
+            copy($bootstrapJsSource, $bootstrapJsDestination);
+            $io->write('Copied `bootstrap.css` file');
+        } else {
+            $io->write($bootstrapJsSource);
+        }
+    }
+
+
     public static function postInstall(Event $event)
     {
         $io = $event->getIO();
