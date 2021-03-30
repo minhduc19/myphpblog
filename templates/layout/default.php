@@ -21,17 +21,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));?>
     <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+     <?=$this->Html->css(['bootstrap']) ?>
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+<script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+   
+          
 
-   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  
+
+   
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 

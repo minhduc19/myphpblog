@@ -15,7 +15,7 @@ class ArticlesController extends AppController
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
         //$this->Authentication->allowUnauthenticated(['test']);
-        $this->Authentication->addUnauthenticatedActions(['view','test','reply']);
+        $this->Authentication->addUnauthenticatedActions(['view','test','reply','receive','publicIndex']);
     }
 	public function initialize(): void
 	{	
@@ -54,10 +54,25 @@ class ArticlesController extends AppController
 
 	}
 
+	public function receive(){
+		$this->Authorization->skipAuthorization();
+		$id = $this->request->getData('id');
+		$isPost = $this->request->is('get');
+		$page = $this->request->getQuery('id');
+		var_dump($page);
+		//var_dump($this->request->getMethod());
+		$this->autoRender = false;
+			
+	}
+
+	public function public(){
+		$this->Authorization->skipAuthorization();
+		$articles = $this->Articles->find('all')->contain("Tags");
+		$this->set('articles',$articles);
+	}
 
 	public function index()
 	{
-		
 		//$service = $this->request->getAttribute('authentication')->getAuthenticationProvider();
 		$service = $this->request->getAttribute('authentication')->getResult()->isValid();
 		//pr($service);
@@ -77,45 +92,41 @@ class ArticlesController extends AppController
 		$this->viewBuilder()->setOption('serialize', ['articles']);
 		//pr($this->request);
 		//pr($this->add());
-		
-
-		
 	}
 
-	public function reply()
-	{
-	$this->Authorization->skipAuthorization();
-	$reply = $this->Articles->newEmptyEntity();
-	$reply->user_id = $this->request->getAttribute('identity')->getIdentifier();
-	
-	if ($this->request->is('post')) 
-	{
-	$reply = $this->Articles->patchEntity($reply,$this->request->getData());
-	
-	if ($this->Articles->save($reply)) 
-		{	
-		$this->Flash->success(__('success'));
-		return $this->redirect(['action' => 'index']);
-		} else {
-		$this->Flash->error(__('Unable to add your article.'));
-		}		
-	}
 
-	}
 
 	public function view($slug = null)
 	{
 	$this->Authorization->skipAuthorization();
-	$article = $this->Articles->findBySlug($slug)->contain('Tags')->firstOrFail();
+	$article = $this->Articles->findBySlug($slug)->contain('Tags')->contain('Answers')->firstOrFail();
+
+	//pr($article->answers);
+	//$this->Authorization->authorize($article->answers);
+	// Using Authentication component
+
+// Using request object
+
+
+	$result = $this->Authentication->getResult();
+	$user = $this->request->getAttribute('identity');
+
+
 	$test = $this->Articles;
 
+
+	$this->set('user',$user);
 	$this-> set('test',$test);
 	$this->set(compact('article'));
 
-	$reply = $this->Articles->newEmptyEntity();
-	$this->set('reply',$reply);
+	//$answer = $this->getTableLocator()->get('Answers')->newEmptyEntity();
+	$answer = $this->loadModel('Answers')->newEmptyEntity();
+	$this->set('answer',$answer);
 	//pr($article);
-	//
+	//$new = 'This variable $a is from function view';
+	//$this->setAction('add');
+	//$this->setAction('add',$new);
+	//$this->render('/users/test','test_template');
 	}
 
 	public function add()
@@ -201,6 +212,22 @@ class ArticlesController extends AppController
 
 	$this->set('tags', $tags);
 	$this->set('article', $article);
+	}
+
+	public function ajaxRemove(){
+		$id = $this->request->getData('del_id');
+		$this->request->allowMethod(['post', 'delete']);
+		$article = $this->Articles->find()->where(['id' => $id])->firstOrFail();
+		$this->Authorization->authorize($article);
+
+		if ($this->Articles->delete($article)) 
+		{
+			$this->Flash->success(__('The {0} article has been deleted.', $article->title));
+			//return $this->redirect(['action' => 'index']);
+			exit("yes");
+		}
+
+		
 	}
 
 	public function delete($slug)
